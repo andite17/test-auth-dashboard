@@ -11,11 +11,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import { Alert, Snackbar } from '@mui/material';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  const [open, setOpen] = React.useState(false);
 
   const handleSubmit =async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,7 +28,19 @@ export default function SignUp() {
         }
       })
 
+    if(data) {
+      setOpen(true)
+    }
+
     console.log(data)
+  };
+
+  const handleCloseNotif = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
   };
 
   return (
@@ -98,6 +112,16 @@ export default function SignUp() {
               </Grid>
             </Grid>
           </Box>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleCloseNotif}>
+            <Alert
+              onClose={handleCloseNotif}
+              severity="success"
+              variant="filled"
+              sx={{ width: '100%' }}
+            >
+              User create success !!!
+            </Alert>
+          </Snackbar>
         </Box>
       </Container>
     </ThemeProvider>

@@ -15,11 +15,7 @@ import useSignIn from 'react-auth-kit/hooks/useSignIn';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+const defaultTheme = createTheme();
 
 export default function SignIn() {
   const signIn = useSignIn();
@@ -55,7 +51,7 @@ export default function SignIn() {
   };
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
